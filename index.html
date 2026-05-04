@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moses Nyambe — UNZASU Presidential Candidate 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #1a6b3a;
+      --green-light: #2a8f50;
+      --gold: #c9a227;
+      --gold-light: #e8c04a;
+      --dark: #0d1a12;
+      --charcoal: #1c2b22;
+      --cream: #f5f0e8;
+      --white: #ffffff;
+      --text: #1c2b22;
+      --muted: #4a6455;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background: rgba(13,26,18,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,162,39,0.2);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-burger span { width: 24px; height: 2px; background: var(--white); display: block; transition: 0.3s; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+    }
+
+    /* ── HERO SLIDESHOW ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 600px;
+      overflow: hidden;
+    }
+    .slides { position: absolute; inset: 0; }
+    .slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 1.2s ease;
+      background-size: cover; background-position: center;
+    }
+    .slide.active { opacity: 1; }
+
+    /* UNZA campus-themed gradient slides */
+    .slide-1 {
+      background: linear-gradient(135deg, #0d3320 0%, #1a6b3a 40%, #0f4a2a 70%, #082015 100%);
+    }
+    .slide-2 {
+      background: linear-gradient(135deg, #1a2f0d 0%, #3a6b1a 40%, #2a4f0f 70%, #0f2008 100%);
+    }
+    .slide-3 {
+      background: linear-gradient(135deg, #0d1a30 0%, #1a3a6b 40%, #0f2a4a 70%, #081520 100%);
+    }
+    .slide-4 {
+      background: linear-gradient(135deg, #2a1a0d 0%, #6b3a1a 40%, #4a2a0f 70%, #201508 100%);
+    }
+
+    /* Grid overlay on slides */
+    .slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: 
+        linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .slide-label {
+      position: absolute; bottom: 2rem; right: 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(201,162,39,0.6);
+      letter-spacing: 0.1em;
+    }
+
+    /* Slide content */
+    .hero-content {
+      position: absolute; inset: 0; z-index: 10;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,26,18,0.3) 0%,
+        rgba(13,26,18,0.5) 50%,
+        rgba(13,26,18,0.75) 100%
+      );
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+    }
+
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      font-style: italic;
+      color: var(--gold-light);
+      margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp 0.9s 0.7s forwards;
+    }
+
+    .hero-sub {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.05em;
+      margin-bottom: 3rem;
+      opacity: 0; animation: fadeUp 0.9s 0.9s forwards;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      opacity: 0; animation: fadeUp 0.9s 1.1s forwards;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--dark);
+      padding: 0.85rem 2.2rem;
+      border: none; border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 0.85rem 2.2rem;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(201,162,39,0.1); }
+
+    /* Slide indicators */
+    .slide-dots {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 20; display: flex; gap: 0.6rem;
+    }
+    .dot {
+      width: 28px; height: 2px; background: rgba(255,255,255,0.3);
+      border: none; cursor: pointer; transition: background 0.3s, width 0.3s;
+    }
+    .dot.active { background: var(--gold); width: 48px; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.15;
+      color: var(--dark); margin-bottom: 1.5rem;
+    }
+    .section-title em { color: var(--green); font-style: normal; }
+    .divider {
+      width: 60px; height: 3px; background: var(--gold);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ONE PROMISE ── */
+    .promise-section {
+      background: var(--dark);
+      color: var(--white);
+      position: relative; overflow: hidden;
+    }
+    .promise-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(26,107,58,0.25) 0%, transparent 60%),
+                  radial-gradient(circle at 80% 20%, rgba(201,162,39,0.1) 0%, transparent 50%);
+    }
+    .promise-section .container { position: relative; z-index: 1; }
+    .promise-section .section-label { color: var(--gold-light); }
+    .promise-section .section-title { color: var(--white); }
+    .promise-section .divider { background: var(--gold); }
+
+    .promise-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-style: italic;
+      color: var(--gold-light);
+      line-height: 1.5;
+      border-left: 3px solid var(--gold);
+      padding-left: 2rem;
+      max-width: 820px;
+      margin-bottom: 2rem;
+    }
+
+    .bio-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: start; margin-top: 1.5rem;
+    }
+    .bio-text { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.8); }
+    .bio-text p + p { margin-top: 1rem; }
+    .bio-stat-box {
+      background: rgba(201,162,39,0.08);
+      border: 1px solid rgba(201,162,39,0.2);
+      padding: 2rem;
+    }
+    .bio-stat { margin-bottom: 1.5rem; }
+    .bio-stat:last-child { margin-bottom: 0; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 700; color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin-top: 0.3rem; letter-spacing: 0.05em; text-transform: uppercase; }
+
+    @media (max-width: 768px) { .bio-grid { grid-template-columns: 1fr; } }
+
+    /* ── PILLARS ── */
+    .pillars-section { background: var(--cream); }
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5px;
+      background: rgba(26,107,58,0.15);
+      border: 1.5px solid rgba(26,107,58,0.15);
+      margin-top: 1rem;
+    }
+    .pillar-card {
+      background: var(--white);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s, transform 0.2s;
+      cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .pillar-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--green);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.3s;
+    }
+    .pillar-card:hover::before { transform: scaleY(1); }
+    .pillar-card:hover { background: #f8fdf9; }
+
+    .pillar-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      color: var(--gold); text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .pillar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--dark); margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .pillar-text { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
+
+    .pillar-actions { margin-top: 1.25rem; }
+    .pillar-action {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.82rem; color: var(--text);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(26,107,58,0.08);
+    }
+    .pillar-action:last-child { border-bottom: none; }
+    .action-icon { color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── ACCOUNTABILITY TOOLS ── */
+    .tools-section { background: var(--dark); color: var(--white); }
+    .tools-section .section-label { color: var(--gold-light); }
+    .tools-section .section-title { color: var(--white); }
+    .tools-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem; margin-top: 1rem;
+    }
+    .tool-card {
+      border: 1px solid rgba(201,162,39,0.2);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+    .tool-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .tool-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem; font-weight: 900;
+      color: rgba(201,162,39,0.15);
+      position: absolute; top: 1rem; right: 1.5rem;
+      line-height: 1;
+    }
+    .tool-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .tool-text { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.75; }
+
+    /* ── PROMISE TRACKER ── */
+    .tracker-section { background: var(--cream); }
+    .tracker-table {
+      width: 100%; border-collapse: collapse; margin-top: 1rem;
+      font-size: 0.87rem;
+    }
+    .tracker-table thead th {
+      background: var(--dark);
+      color: var(--gold);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 1rem 1.2rem; text-align: left;
+    }
+    .tracker-table tbody td {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid rgba(26,107,58,0.1);
+      vertical-align: top;
+    }
+    .tracker-table tbody tr:hover td { background: rgba(26,107,58,0.04); }
+    .status-badge {
+      display: inline-block; padding: 0.2rem 0.7rem;
+      border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .status-not-started { background: rgba(201,162,39,0.12); color: #7a5f10; }
+    .status-in-progress { background: rgba(26,107,58,0.12); color: var(--green); }
+    .status-done { background: rgba(42,143,80,0.15); color: #1a6b3a; }
+
+    /* ── TEAM ── */
+    .team-section { background: var(--white); }
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px; background: rgba(26,107,58,0.1);
+      border: 1px solid rgba(26,107,58,0.1);
+      margin-top: 1rem;
+    }
+    .team-card {
+      background: var(--white); padding: 2rem 1.5rem;
+      transition: background 0.2s;
+    }
+    .team-card:hover { background: #f8fdf9; }
+    .team-role {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .team-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--dark); margin-bottom: 0.75rem;
+    }
+    .team-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── CLOSING STATEMENT ── */
+    .closing-section {
+      background: linear-gradient(135deg, var(--dark) 0%, #0f2a1a 100%);
+      color: var(--white); text-align: center;
+      padding: 8rem 2rem;
+    }
+    .closing-section .section-label { color: var(--gold-light); }
+    .closing-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.8rem);
+      font-weight: 900; font-style: italic;
+      color: var(--white);
+      max-width: 800px; margin: 0 auto 1.5rem;
+      line-height: 1.3;
+    }
+    .closing-sub {
+      font-size: 1rem; color: rgba(255,255,255,0.6);
+      margin-bottom: 3rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060e09;
+      color: rgba(255,255,255,0.55);
+      padding: 3rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem;
+      align-items: start;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .footer-logo span { color: var(--white); }
+    .footer-tagline {
+      font-style: italic; font-size: 0.8rem;
+      color: rgba(255,255,255,0.4); margin-top: 0.4rem;
+    }
+    .footer-col h4 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .footer-col p, .footer-col a {
+      font-size: 0.85rem; line-height: 1.8; display: block;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom {
+      max-width: 1100px; margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.72rem;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── SCROLL TO TOP ── */
+    .scroll-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+      width: 44px; height: 44px;
+      background: var(--green);
+      color: var(--white);
+      border: none; border-radius: 2px;
+      font-size: 1.2rem; cursor: pointer;
+      opacity: 0; transition: opacity 0.3s, transform 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .scroll-top.visible { opacity: 1; }
+    .scroll-top:hover { transform: translateY(-3px); background: var(--green-light); }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">Moses <span>Nyambe</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#pillars">Pillars</a></li>
+    <li><a href="#tools">Accountability</a></li>
+    <li><a href="#tracker">Tracker</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="slides">
+    <div class="slide slide-1 active">
+      <div class="slide-label">Great East Road Campus — Main Gate</div>
+    </div>
+    <div class="slide slide-2">
+      <div class="slide-label">University of Zambia — Main Library</div>
+    </div>
+    <div class="slide slide-3">
+      <div class="slide-label">UNZA — School of Humanities</div>
+    </div>
+    <div class="slide slide-4">
+      <div class="slide-label">UNZA — Student Residences</div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">UNZASU Presidential Election 2026 · Official Manifesto</p>
+    <h1 class="hero-name">Moses<br/>Nyambe</h1>
+    <p class="hero-tagline">"Audit the System. Own the Solution."</p>
+    <p class="hero-sub">Development Studies Student &nbsp;|&nbsp; Great East Road Campus</p>
+    <div class="hero-cta">
+      <a href="#pillars" class="btn-primary">Read the Plan</a>
+      <a href="#tracker" class="btn-outline">Promise Tracker</a>
+    </div>
+  </div>
+
+  <div class="slide-dots" id="dots"></div>
+</section>
+
+<!-- ── ABOUT / ONE PROMISE ── -->
+<section class="promise-section" id="about">
+  <div class="container">
+    <p class="section-label reveal">Who I Am</p>
+    <h2 class="section-title reveal">Not a promise.<br/><em>A system.</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="promise-quote reveal">
+      "You will always know what your union president is doing — and you will have the tools to hold everyone accountable, including me."
+    </div>
+
+    <div class="bio-grid">
+      <div class="bio-text reveal">
+        <p>My name is Moses Nyambe. I am a Development Studies student at the University of Zambia and a former Head Boy of Chibolya Secondary School.</p>
+        <p>I did not run out of ambition. I ran because I sat where you are sitting — trying to understand why I could not get accommodation, asking what criteria were being used, and receiving no answer. Not a wrong answer. <strong style="color:rgba(255,255,255,0.95)">No answer.</strong></p>
+        <p>That silence is what I am running against.</p>
+        <p>Every candidate will promise you accommodation. Safety. Infrastructure. Jobs. <strong style="color:rgba(255,255,255,0.95)">Ask them how.</strong> I am offering something harder and more valuable: a system you can use to hold me, management, and this university accountable — starting day one.</p>
+      </div>
+      <div class="bio-stat-box reveal">
+        <div class="bio-stat">
+          <div class="stat-num">30,000</div>
+          <div class="stat-label">Students this union must serve</div>
+        </div>
+        <div class="bio-stat">
+          <div class="stat-num">4,150</div>
+          <div class="stat-label">Total bed spaces on campus</div>
+        </div>
+        <div class="bio-stat">
+          <div class="stat-num">21 Days</div>
+          <div class="stat-label">Response deadline for management — or it goes public</div>
+        </div>
+        <div class="bio-stat">
+          <div class="stat-num">Day 1</div>
+          <div class="stat-label">When accountability tools go live</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PILLARS ── -->
+<section class="pillars-section" id="pillars">
+  <div class="container">
+    <p class="section-label reveal">The Four Pillars</p>
+    <h2 class="section-title reveal">Real actions.<br/><em>Honest scope.</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="pillars-grid">
+
+      <div class="pillar-card reveal">
+        <div class="pillar-number">Pillar 01 — Accommodation</div>
+        <h3 class="pillar-title">Transparency Over False Promises</h3>
+        <p class="pillar-text">UNZA has 4,150 beds for 28,000 students. No president can build a hostel. What I can do — and what no previous president has done — is make allocation transparent and documented.</p>
+        <div class="pillar-actions">
+          <div class="pillar-action"><span class="action-icon">→</span> Publish bed-space allocation criteria within 30 days</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Formal petition to VC, Dean of Students, Higher Education Authority</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Log every corruption allegation — publicly</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Student database of fair off-campus landlords and rental prices</div>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal">
+        <div class="pillar-number">Pillar 02 — Safety</div>
+        <h3 class="pillar-title">Documentation Saves Lives</h3>
+        <p class="pillar-text">In March 2026, Emmanuel Bwalya — 18 years old — drowned in an open pit on this campus at 9pm. Management knew the sewer system was failing. There was no paper trail. That cannot happen again.</p>
+        <div class="pillar-actions">
+          <div class="pillar-action"><span class="action-icon">→</span> Student-run campus hazard reporting system — accessible on any phone</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Every reported hazard formally submitted to management within 48 hours</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Termly campus safety audit submitted to management and Dean of Students</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Every non-response after 21 days becomes public record</div>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal">
+        <div class="pillar-number">Pillar 03 — Infrastructure</div>
+        <h3 class="pillar-title">Honest Pressure</h3>
+        <p class="pillar-text">Infrastructure requires government funding. I will not lie to you about that. What I will do is make the cost of inaction politically uncomfortable for every decision-maker.</p>
+        <div class="pillar-actions">
+          <div class="pillar-action"><span class="action-icon">→</span> Student-compiled infrastructure needs report submitted every term</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Reports sent to management, HEA, and Ministry of Education</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Every response and every silence published publicly</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Make UNZA's funding gap a public conversation for media and government</div>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal">
+        <div class="pillar-number">Pillar 04 — Industrial Linkages</div>
+        <h3 class="pillar-title">Honest Scope</h3>
+        <p class="pillar-text">I will not promise you a job pipeline in one year. I will promise you the foundation — verified, named, and published. Three real companies. Not MOUs. Commitments.</p>
+        <div class="pillar-actions">
+          <div class="pillar-action"><span class="action-icon">→</span> Audit every existing UNZA–industry MOU — active or ceremonial paper</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Create a student skills register for final-year students</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Secure 3 real companies committed to structured internship intakes</div>
+          <div class="pillar-action"><span class="action-icon">→</span> Names attached. Verified. Published.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── ACCOUNTABILITY TOOLS ── -->
+<section class="tools-section" id="tools">
+  <div class="container">
+    <p class="section-label reveal">The Accountability System</p>
+    <h2 class="section-title reveal">Three tools.<br/><em>Day one.</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="tools-grid">
+      <div class="tool-card reveal">
+        <div class="tool-num">01</div>
+        <h3 class="tool-title">The Monthly Public Report</h3>
+        <p class="tool-text">Published every last Friday of the month. Distributed to every hall WhatsApp group. Posted on a dedicated public page. Printed on every hall noticeboard. Five things, without exception: what was raised, who was met and when, what response was received, what is unresolved and why, what happens next — with a deadline.</p>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-num">02</div>
+        <h3 class="tool-title">The Promise Tracker</h3>
+        <p class="tool-text">Every commitment from this manifesto published publicly on day one of my term and updated every term. Three columns: Promise. Status. Evidence. Visible to every student for the entire duration of my presidency. No hiding. No rebranding failures as partial successes.</p>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-num">03</div>
+        <h3 class="tool-title">The Management Response Register</h3>
+        <p class="tool-text">Every formal submission to management logged publicly with their response — or after 21 days, their documented silence. Published for every student, parent, journalist, and government official to see. No more invisible dangers. No more silence that costs lives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROMISE TRACKER ── -->
+<section class="tracker-section" id="tracker">
+  <div class="container">
+    <p class="section-label reveal">Live Promise Tracker</p>
+    <h2 class="section-title reveal">Every commitment.<br/><em>On record.</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="reveal" style="overflow-x:auto;">
+      <table class="tracker-table">
+        <thead>
+          <tr>
+            <th>Promise</th>
+            <th>Pillar</th>
+            <th>Status</th>
+            <th>Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Publish accommodation allocation criteria</td>
+            <td>Accommodation</td>
+            <td><span class="status-badge status-not-started">Not Started</span></td>
+            <td style="color:var(--muted);font-family:'DM Mono',monospace;font-size:0.75rem;">—</td>
+          </tr>
+          <tr>
+            <td>Launch Monthly Public Report</td>
+            <td>Accountability</td>
+            <td><span class="status-badge status-not-started">Not Started</span></td>
+            <td style="color:var(--muted);font-family:'DM Mono',monospace;font-size:0.75rem;">—</td>
+          </tr>
+          <tr>
+            <td>Launch student hazard reporting system</td>
+            <td>Safety</td>
+            <td><span class="status-badge status-not-started">Not Started</span></td>
+            <td style="color:var(--muted);font-family:'DM Mono',monospace;font-size:0.75rem;">—</td>
+          </tr>
+          <tr>
+            <td>Submit infrastructure report to VC & HEA</td>
+            <td>Infrastructure</td>
+            <td><span class="status-badge status-not-started">Not Started</span></td>
+            <td style="color:var(--muted);font-family:'DM Mono',monospace;font-size:0.75rem;">—</td>
+          </tr>
+          <tr>
+            <td>Audit all UNZA–industry MOUs</td>
+            <td>Industrial Linkages</td>
+            <td><span class="status-badge status-not-started">Not Started</span></td>
+            <td style="color:var(--muted);font-family:'DM Mono',monospace;font-size:0.75rem;">—</td>
+          </tr>
+          <tr>
+            <td>Secure 3 real internship commitments</td>
+            <td>Industrial Linkages</td>
+            <td><span class="status-badge status-not-started">Not Started</span></td>
+            <td style="color:var(--muted);font-family:'DM Mono',monospace;font-size:0.75rem;">—</td>
+          </tr>
+          <tr>
+            <td>Refuse all political party alignment</td>
+            <td>Independence</td>
+            <td><span class="status-badge status-not-started">Not Started</span></td>
+            <td style="color:var(--muted);font-family:'DM Mono',monospace;font-size:0.75rem;">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reveal" style="margin-top:1rem;font-size:0.78rem;color:var(--muted);font-family:'DM Mono',monospace;">
+      This tracker updates every term. Status: Not Started · In Progress · Completed
+    </p>
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<section class="team-section" id="team">
+  <div class="container">
+    <p class="section-label reveal">The Cabinet</p>
+    <h2 class="section-title reveal">Selected on one criterion:<br/><em>Track record of finishing things.</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-role">Presidential Candidate</div>
+        <h3 class="team-title">Moses Nyambe</h3>
+        <p class="team-desc">Development Studies student. Former Head Boy, Chibolya Secondary School. Running to build a system — not a personality cult.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-role">Vice President</div>
+        <h3 class="team-title">System Continuity</h3>
+        <p class="team-desc">Publishes reports when the President is in management meetings. Holds the accountability standard under pressure.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-role">Prime Minister</div>
+        <h3 class="team-title">Operational Commander</h3>
+        <p class="team-desc">Runs weekly internal cabinet check-ins. Flags who is behind. Ensures no minister is decorative.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-role">Minister of Welfare</div>
+        <h3 class="team-title">Welfare Portfolio</h3>
+        <p class="team-desc">Owns accommodation transparency and the hazard reporting system. Direct line to student safety.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-role">Minister of Information</div>
+        <h3 class="team-title">Information & Publicity</h3>
+        <p class="team-desc">Owns the monthly report production and distribution. Treats the last-Friday deadline as non-negotiable.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-role">Minister of Academics</div>
+        <h3 class="team-title">Academic Portfolio</h3>
+        <p class="team-desc">Monitors academic policy, documents grievances, maintains formal communication with the Academic Registrar.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-role">Minister of Industrial Linkages</div>
+        <h3 class="team-title">Industry Portfolio</h3>
+        <p class="team-desc">Owns the MOU audit, the skills register, and the three-company internship commitment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLOSING ── -->
+<section class="closing-section">
+  <div class="container">
+    <p class="section-label reveal" style="text-align:center;">A Message to Every Student</p>
+    <p class="closing-quote reveal">
+      "I am not asking you to trust me blindly. I am asking you to elect a system — and then use it."
+    </p>
+    <p class="closing-sub reveal">
+      You are not waiting to be saved. You have the tools to analyse, document, and demand.<br/>My job is to build the platform that makes that power official.
+    </p>
+    <div class="reveal" style="display:flex;justify-content:center;">
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Moses <span>Nyambe</span></div>
+      <div class="footer-tagline">"Audit the System. Own the Solution."</div>
+      <p style="margin-top:1rem;font-size:0.78rem;line-height:1.7;color:rgba(255,255,255,0.4);">UNZASU Presidential Candidate 2026<br/>Development Studies · Great East Road Campus</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="#about">About Moses</a>
+      <a href="#pillars">The Four Pillars</a>
+      <a href="#tools">Accountability System</a>
+      <a href="#tracker">Promise Tracker</a>
+      <a href="#team">The Cabinet</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:revolutionlistnyambe@gmail.com">revolutionlistnyambe@gmail.com</a>
+      <a href="tel:+260974612549">+260 974 612 549</a>
+      <p style="margin-top:1rem;font-size:0.78rem;color:rgba(255,255,255,0.35);">For questions, stories, and to sign the petition — contact Moses through your hall representative or school class representative.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Moses Nyambe — UNZASU Presidential Campaign</span>
+    <span style="color:rgba(255,255,255,0.25);">University of Zambia · Lusaka</span>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // Slideshow
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('dots');
+  let current = 0, timer;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Slide ' + (i+1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    document.querySelectorAll('.dot')[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.dot')[current].classList.add('active');
+    clearInterval(timer);
+    timer = setInterval(next, 4500);
+  }
+
+  function next() { goTo((current + 1) % slides.length); }
+  timer = setInterval(next, 4500);
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 0.07 + 's';
+    observer.observe(el);
+  });
+
+  // Scroll to top button
+  const scrollBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // Mobile nav toggle
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') {
+      links.style.display = '';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:64px;left:0;width:100%;background:rgba(13,26,18,0.98);padding:1.5rem 2rem;gap:1.2rem;';
+    }
+  }
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.querySelector('.nav-links').style.display = '';
+    });
+  });
+</script>
+</body>
+</html>
